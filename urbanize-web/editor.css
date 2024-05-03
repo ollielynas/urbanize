@@ -1,0 +1,209 @@
+
+
+html body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    padding-top: 5em;
+    font-size: 1em;
+}
+
+
+
+.point {
+    position: absolute;
+    height: 2px;
+    width: 2px;
+    border-radius: 100%;
+    border: 1px solid black;
+    translate: -50% -50%;
+    z-index: 2;
+}
+
+
+.top {
+    position: absolute;
+    height: 5em;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: rgb(233, 233, 233);
+}
+
+.top_dropdown {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 3em;
+    background-color: white;
+    gap: 0.3em;
+
+}
+
+.top_selector {
+    height: 2em;
+    background-color: rgb(238, 175, 255);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3em;
+    padding-left: 0.3em;
+}
+
+.pt_buttons {
+    position: absolute;
+    left: 15em;
+    top: 5em;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px black solid; */
+    padding: 0.3em;
+}
+
+.map_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(239, 239, 239);
+    box-shadow: inset 0 0 10px #00000056;
+    overflow: hidden;
+}
+
+.map {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    display: flex;
+    position: relative;
+    right: 0;
+}
+
+.elem {
+    display: flex;
+    flex-direction: column;
+    gap: .1em;
+    width: 20em;
+    height: 100%;
+    background-color: whitesmoke;
+}
+.elem::before {
+    font-size: 1.5em;
+    content: "Elements";
+}
+
+
+
+
+body[input_type="connect_points"]  .point:hover {
+    height: 4px;
+    width: 4px;
+}
+body:not([input_type="connect_points"] ) .save_pt {
+    display: none;
+}
+
+
+.top .top_dropdown {
+    display: none;
+    padding-left: 0.5em;
+}
+.top[selected='edit'] .top_dropdown.edit {
+    display: flex;
+}
+.top[selected='file'] .top_dropdown.file {
+    display: flex;
+}
+.top[selected='server'] .top_dropdown.server {
+    display: flex;
+}
+.top[selected='display'] .top_dropdown.display {
+    display: flex;
+}
+
+
+.feature {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0.5em;
+}
+.feature:has(details[open]) {
+    flex-direction: column;
+}
+.feature:has(details[open]) > * {
+    background-color: rgb(237, 237, 237);
+    display: flex;
+    flex-direction: column;
+}
+
+.feature:not(:hover) details:not([open]) > summary {
+    display:none;
+}
+.feature:hover details:not([open]) > summary {
+    background-color: rgb(148, 148, 246);
+    margin-left: 1em;
+    padding: 0.01em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    border-radius: 0.2em;
+}
+.feature details[open] > summary {
+    color:#00000000
+}
+.feature details[open] > summary::after {
+    color:#000000;
+    content: "save";
+    background-color: rgb(190, 190, 255);
+    padding: 0.01em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    border-radius: 0.2em;
+    margin-left: 7.5em;
+}
+
+details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+.name {
+    background-color: rgba(235, 235, 235, 0.451);
+}
+
+.name[contenteditable="true"] {
+    outline: solid blue 1px;
+}
+
+
+.name {
+    height: 1.1em;
+    white-space: nowrap;
+    width:8em;
+    overflow: hidden;
+} 
+.name br {
+    display:none;
+
+}
+/* .name * {
+    display:inline;
+    white-space:nowrap;
+} */
+
+
+body:has(input#show_points:checked) .point {display: none;}
+body[input_type = "connect_points"] .point {
+    display: flex !important;
+}
+body[input_type = "add_point"] .point {
+    display: flex !important;
+}

@@ -1,0 +1,67 @@
+
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <link rel='stylesheet' type='text/css' media='screen' href='editor.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='city.css'>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body input_type="select" selected_points="" selected_id="">
+
+    <div class="pt_buttons">
+        <button class="save_pt" onclick = "save_points();document.body.setAttribute('input_type','select')">save points</button>
+        <button class="save_pt reset" onclick = "document.body.setAttribute('input_type','select')">cancel</button>
+    </div>
+    <!-- <button class="save_pt reset_to_befreo" onclick = "">undo</button> -->
+
+    <div class="top" selected = "edit">
+        <div class="top_selector">
+            <button onclick="this.parentElement.parentElement.setAttribute('selected', 'file')">file</button>
+            <button onclick="this.parentElement.parentElement.setAttribute('selected', 'edit')">edit</button>
+            <button onclick="this.parentElement.parentElement.setAttribute('selected', 'server')">server</button>
+            <button onclick="this.parentElement.parentElement.setAttribute('selected', 'display')">display</button>
+        </div>
+        <div class="edit top_dropdown">
+            <button onclick="document.body.setAttribute('input_type','add_point')">add points</button>
+            <button onclick="add_road('id'+Math.round(Math.random() * 10000000).toString())">add road</button>
+            <button onclick="add_zone('id'+Math.round(Math.random() * 10000000).toString())">add zone</button>
+        </div>
+        <div class="file top_dropdown">
+            oops no files stuff
+        </div>
+        <div class="server top_dropdown">
+            <input placeholder="Server Ip" name="server_ip" type="text" pattern="^(([0-9a-fA-F]{1}|[1-9a-fA-F]{1}[0-9a-fA-F]{1,3}):){7}([0-9a-fA-F]{1}|[1-9a-fA-F]{1}[0-9a-fA-F]{1,3})$"></input>
+            <button>Run Traffic simulation</button>
+        </div>
+        <div class="display top_dropdown">
+            <label><input id="show_points" name="show_points" type="checkbox" />Disable Points</label>
+        </div>
+    </div>
+        
+    <div class="elem" id="elem">
+
+    </div>
+    <div class="map_wrapper">
+    <div class="map" id="map">
+        <svg class="preview_svg" id="preview_svg" width="500" height="500" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    </div>
+
+    
+    <script type="module">
+        import init, { set_points, update, add_road,  remove_road, add_zone} from './pkg/urbanize.js';
+        async function run() {
+            await init();
+
+            window.set_points = set_points;
+            window.update = update;
+            window.add_road = add_road;
+            window.add_zone = add_zone;
+            window.remove_road = remove_road;
+
+        }
+        run();
+</script>
+<script src='editor.js'></script>
+</body>
+</html>

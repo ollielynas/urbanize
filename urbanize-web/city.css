@@ -1,0 +1,56 @@
+
+.map {
+    background-color: #F0EDE5;
+}
+
+.preview_svg {
+    z-index: 0;
+    
+}
+
+path {
+    position: absolute;
+}
+
+svg text {
+    position: absolute;
+    z-index: 100;
+    font-size: 3px;
+}
+
+
+path.street {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+    z-index: 0;
+}
+
+
+path.highway {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 4px;
+    stroke-linejoin: round;
+    z-index: 0;
+}
+
+
+path.area_path {
+    stroke-width: 0.2px;
+    stroke-linejoin: miter;
+    /* stroke: rgb(0, 0, 0); */
+    fill: rgba(0, 0, 0, 0);
+}
+
+path.park {
+    fill: rgb(181, 211, 159);
+}
+path.residential {
+    fill: #f0e7e5;
+}
+path.commercial {
+    fill: rgb(228, 228, 228);
+}
+

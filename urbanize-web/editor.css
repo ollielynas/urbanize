@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
 
 html body {
     position: absolute;
@@ -12,16 +12,26 @@ html body {
     margin: 0;
     padding-top: 5em;
     font-size: 1em;
+
+}
+html * {
+    font-family: "Ubuntu Sans", sans-serif;
+    font-optical-sizing: auto;
+    /* font-weight: <weight>; */
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
 }
 
 
 
 .point {
     position: absolute;
-    height: 2px;
-    width: 2px;
+    height: 5px;
+    width: 5px;
     border-radius: 100%;
-    border: 1px solid black;
+    border: 1.5px solid black;
+    scale: 0.5;
     translate: -50% -50%;
     z-index: 2;
 }
@@ -41,19 +51,38 @@ html body {
     flex-direction: row;
     align-items: center;
     height: 3em;
-    background-color: white;
+    background-color: rgb(240, 240, 240);
     gap: 0.3em;
-
+    padding-left: 1em;
 }
+
+
 
 .top_selector {
     height: 2em;
-    background-color: rgb(238, 175, 255);
+    background-color: rgb(228, 228, 228);
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.3em;
-    padding-left: 0.3em;
+    /* gap: 0.3em; */
+    padding-left: 2em;
+}
+
+.top button {
+    background-color: #00000000;
+    border: none;
+    height: 100%;
+    padding: 0.35em;
+    margin: 0.1em;
+}
+.top button:hover {
+    background-color: #ddddddc1;
+    border: none;
+}
+
+.top_dropdown button {
+    height: 77%;
+    border-radius: 5%;
 }
 
 .pt_buttons {
@@ -64,6 +93,8 @@ html body {
     flex-direction: column;
     /* border: 1px black solid; */
     padding: 0.3em;
+    z-index: 30;
+
 }
 
 .map_wrapper {
@@ -84,6 +115,11 @@ html body {
     display: flex;
     position: relative;
     right: 0;
+    /* transform: translate(var(--translate-x, 0), var(--translate-y, 0)); */
+    transition-property: scale;
+    transition-duration: 10ms;
+    transition-behavior: linear;
+    /* transition: scale 0.1s, left 0.1s, top 0.1s; */
 }
 
 .elem {
@@ -91,20 +127,26 @@ html body {
     flex-direction: column;
     gap: .1em;
     width: 20em;
-    height: 100%;
+    height: calc(100% - 2em);
+    padding: 1em;
     background-color: whitesmoke;
 }
-.elem::before {
-    font-size: 1.5em;
-    content: "Elements";
+
+.elem:not(:has(.feature)):after {
+    margin: 1em;
+    font-size: 0.7em;
+    color: gray;
+    content: "your map elements will appear here";
+    font-style: italic;
+    /* background-color: red; */
 }
 
 
 
 
 body[input_type="connect_points"]  .point:hover {
-    height: 4px;
-    width: 4px;
+    height: 9px;
+    width: 9px;
 }
 body:not([input_type="connect_points"] ) .save_pt {
     display: none;
@@ -114,6 +156,7 @@ body:not([input_type="connect_points"] ) .save_pt {
 .top .top_dropdown {
     display: none;
     padding-left: 0.5em;
+    border-top: 1px solid rgb(74, 74, 74);
 }
 .top[selected='edit'] .top_dropdown.edit {
     display: flex;
@@ -127,6 +170,34 @@ body:not([input_type="connect_points"] ) .save_pt {
 .top[selected='display'] .top_dropdown.display {
     display: flex;
 }
+.top[selected='edit'] .button_edit {
+    background-color: rgb(240, 240, 240);
+    border-top: 1px solid rgb(74, 74, 74);
+    border-left: 1px solid rgb(74, 74, 74);
+    border-right: 1px solid rgb(74, 74, 74);
+    outline: rgb(240, 240, 240) 1px solid;
+}
+.top[selected='file'] .button_file {
+    background-color: rgb(240, 240, 240);
+    border-top: 1px solid rgb(74, 74, 74);
+    border-left: 1px solid rgb(74, 74, 74);
+    border-right: 1px solid rgb(74, 74, 74);
+    outline: rgb(240, 240, 240) 1px solid;
+}
+.top[selected='server'] .button_server {
+    background-color: rgb(240, 240, 240);
+    border-top: 1px solid rgb(74, 74, 74);
+    border-left: 1px solid rgb(74, 74, 74);
+    border-right: 1px solid rgb(74, 74, 74);
+    outline: rgb(240, 240, 240) 1px solid;
+}
+.top[selected='display'] .button_display {
+    background-color: rgb(240, 240, 240);
+    border-top: 1px solid rgb(74, 74, 74);
+    border-left: 1px solid rgb(74, 74, 74);
+    border-right: 1px solid rgb(74, 74, 74);
+    outline: rgb(240, 240, 240) 1px solid;
+}
 
 
 .feature {
@@ -136,6 +207,7 @@ body:not([input_type="connect_points"] ) .save_pt {
 }
 .feature:has(details[open]) {
     flex-direction: column;
+    margin-top: -1em;
 }
 .feature:has(details[open]) > * {
     background-color: rgb(237, 237, 237);
@@ -157,6 +229,9 @@ body:not([input_type="connect_points"] ) .save_pt {
 .feature details[open] > summary {
     color:#00000000
 }
+.feature:has(details[open]) i {
+    display: none;
+}
 .feature details[open] > summary::after {
     color:#000000;
     content: "save";
@@ -176,7 +251,7 @@ details > summary {
   }
 
 .name {
-    background-color: rgba(235, 235, 235, 0.451);
+    background-color: rgba(235, 235, 235, 0);
 }
 
 .name[contenteditable="true"] {
@@ -207,3 +282,44 @@ body[input_type = "connect_points"] .point {
 body[input_type = "add_point"] .point {
     display: flex !important;
 }
+
+
+.update {
+    position: absolute;
+    left: 8em;
+    bottom: 0.4em;
+    font-size: 1.5em;
+    background-color: transparent;
+    border: none;
+    text-align: center;
+}
+.update:hover::after {
+    content: "update";
+    font-size: 0.5em;
+}
+
+
+body[input_type="move_map"] .move_map {
+    background-color: #57e74f14;
+}
+body[input_type="add_point"] .add_point {
+    background-color: #57e74f14;
+}
+
+.zoom_in {
+    position: absolute;
+    right: 2em;
+    bottom: 0.5em;
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+}
+.zoom_out {
+    position: absolute;
+    right: 0.5em;
+    bottom: 0.5em;
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+}
+

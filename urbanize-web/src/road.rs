@@ -31,6 +31,13 @@ impl MapFeatureType for RoadType {
     fn kind() -> &'static str {
         "road"
     }
+    
+    fn symbol(&self) -> String {
+        match self {
+            RoadType::Street => "<i class=\"ph ph-car-profile\"></i>",
+            RoadType::Highway =>"<i class=\"ph ph-truck\"></i>",
+        }.to_owned()
+    }
 }
 
 impl RoadType {

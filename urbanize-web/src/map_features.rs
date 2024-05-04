@@ -11,6 +11,9 @@ pub trait MapFeatureType: IntoEnumIterator + PartialEq + Default {
 
     fn name(&self) -> String;
 
+
+    fn symbol(&self) -> String;
+
     fn html_selector(&self, id: u64) -> String {
         let names = Self::iter()
             .map(|x| x.name())
@@ -54,6 +57,7 @@ pub trait MapFeature {
     fn html(&self) -> String {
         let id = self.id();
         let name = self.name();
+        let icon = self.feature_type().symbol();
         let points = self
             .points()
             .iter()
@@ -61,10 +65,10 @@ pub trait MapFeature {
             .collect::<String>();
         format!("
         <div name = '' type='{}' index={} points='{points}' class='{} feature' id='id{id}'>
-        <div oninput='this.parentElement.setAttribute(\"name\", this.innerHTML)' onclick=\"listenForDoubleClick(this);\" onblur=\"this.contentEditable=false;\" class='name'>{name}</div>
+        {icon} &nbsp; <div oninput='this.parentElement.setAttribute(\"name\", this.innerHTML)' onclick=\"listenForDoubleClick(this);\" onblur=\"this.contentEditable=false;\" class='name'>{name}</div>
         <details>
         <summary>edit</summary>
-        <button onclick=\"document.body.setAttribute('input_type','connect_points');document.body.setAttribute('selected_id','id{id}')\">set points</button>
+        <button onclick=\"document.body.setAttribute('input_type','connect_points');document.body.setAttribute('selected_id','id{id}')\">select bounds</button>
         <button onclick=\"remove_{}(\'id{id}\')\">delate</button>
         {}
         </details>

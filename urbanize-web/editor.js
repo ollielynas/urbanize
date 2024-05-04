@@ -2,6 +2,7 @@
 
 
 let map = document.querySelector(".map");
+let map_parent = document.querySelector(".map").parentElement;
 
 console.log(map);
 let old_input_state = ""
@@ -83,8 +84,12 @@ map.addEventListener("click", (e) => {
     const rect = target.getBoundingClientRect();
     
     // Mouse position
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+    let scale = parseFloat(map.style.scale);
+    x /= scale;
+    y /= scale;
+
     if (document.body.getAttribute("input_type") == "add_point" && !e.target.classList.contains("point")) {
         console.log("click");
         let point = document.createElement("div");
@@ -110,3 +115,70 @@ map.addEventListener("click", (e) => {
         document.body.setAttribute("selected_points", document.body.getAttribute("selected_points")+"-"+e.target.id+"-");
     }
 });
+
+map.addEventListener("scroll ", (e) => {
+    console.log("x");
+});
+
+let leftValue = 0;
+let topValue = 0;
+
+// const map = document.querySelector(".map");
+function onMouseDrag({ movementX, movementY }) {
+    // let getContainerStyle = window.getComputedStyle(map);
+    // let leftValue = parseInt(getContainerStyle.left);
+    // let topValue = parseInt(getContainerStyle.top);
+    leftValue += movementX
+    topValue += movementY
+
+    map.animate({
+        left: `${leftValue}px`,
+        top: `${topValue}px`
+      }, { duration: 50, fill: "forwards" });
+
+    // map.style.left = `${leftValue + movementX}px`;
+    // map.style.top = `${topValue + movementY}px`;
+}    
+
+map.parentElement.addEventListener("mousedown", () => {
+    let input =  document.body.getAttribute("input_type");
+    if (input == "move_map") {
+        map.parentElement.addEventListener("mousemove", onMouseDrag);
+    }
+});    
+map.parentElement.addEventListener("wheel", (e) => {
+
+    var rect = map.parentElement.getBoundingClientRect();
+        console.log(rect);
+      var x = e.clientX - rect.left - rect.width/2; //x position within the element.
+      var y = e.clientY - rect.top - rect.height/2;
+
+      console.log(x,y)
+
+    zoom(e.deltaY/850.0, x, y);
+});    
+document.addEventListener("mouseup", () => {
+    map.parentElement.removeEventListener("mousemove", onMouseDrag);
+});    
+
+function zoom(i, x,y) {
+    let scale = parseFloat(map.style.scale);
+    scale += scale*i;
+
+    scale = Math.max(Math.min(15, scale), 0.01);
+    map.style.scale = scale.toString();
+
+
+    onMouseDrag({ movementX: (leftValue - x) * i, movementY: (topValue - y) * i});
+}
+
+
+
+
+function zoom_in() {
+    zoom(1/10, 0,0);
+}
+function zoom_out() {
+    zoom(-1/10,0,0);
+}
+

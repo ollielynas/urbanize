@@ -188,6 +188,15 @@ impl MapFeatureType for ZoneType {
         }.to_owned()
     }
 
+    fn symbol(&self) -> String {
+        match self {
+            ZoneType::Park => "<i class=\"ph ph-tree\"></i>",
+            ZoneType::Residential => "<i class=\"ph ph-house-line\"></i>",
+            ZoneType::Commercial => "<i class=\"ph ph-storefront\"></i>",
+            ZoneType::Industrial => "<i class=\"ph ph-factory\"></i>",
+        }.to_owned()
+    }
+
     fn kind() -> &'static str {
         "zone"
     }

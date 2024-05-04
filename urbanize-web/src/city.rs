@@ -102,10 +102,6 @@ impl City {
     get_element_by_id("preview_svg").unwrap().set_inner_html(&svg_inner_html);
 
     }
-
-
-    
-
 }
 
 

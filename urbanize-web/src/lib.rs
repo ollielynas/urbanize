@@ -45,6 +45,18 @@ pub fn remove_road(id: String) -> Result<(), JsError> {
     CITY.lock().unwrap().roads.remove(&id_int);
     Ok(())
 }
+#[wasm_bindgen]
+pub fn remove_zone(id: String) -> Result<(), JsError> {
+    let node = get_element_by_id(&id)?;
+    node.parent_node().unwrap().remove_child(&node).unwrap();
+
+    let id_int: u64 = id.replace("id", "").parse().unwrap();
+    while CITY.try_lock().is_err() {
+        
+    }
+    CITY.lock().unwrap().roads.remove(&id_int);
+    Ok(())
+}
 
 pub fn add_thing<Feature: MapFeature>(id: String) -> Result<Feature, JsError> {
     if get_element_by_id(&id).is_err() {

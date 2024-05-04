@@ -117,7 +117,7 @@ html * {
     right: 0;
     /* transform: translate(var(--translate-x, 0), var(--translate-y, 0)); */
     transition-property: scale;
-    transition-duration: 10ms;
+    transition-duration: 0ms;
     transition-behavior: linear;
     /* transition: scale 0.1s, left 0.1s, top 0.1s; */
 }

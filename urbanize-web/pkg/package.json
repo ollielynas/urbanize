@@ -1,0 +1,14 @@
+{
+  "name": "urbanize",
+  "version": "0.1.0",
+  "files": [
+    "urbanize_bg.wasm",
+    "urbanize.js",
+    "urbanize.d.ts"
+  ],
+  "module": "urbanize.js",
+  "types": "urbanize.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

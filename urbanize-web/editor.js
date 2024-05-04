@@ -134,7 +134,7 @@ function onMouseDrag({ movementX, movementY }) {
     map.animate({
         left: `${leftValue}px`,
         top: `${topValue}px`
-      }, { duration: 50, fill: "forwards" });
+      }, { duration: 0, fill: "forwards" });
 
     // map.style.left = `${leftValue + movementX}px`;
     // map.style.top = `${topValue + movementY}px`;
